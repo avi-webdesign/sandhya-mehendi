@@ -9,7 +9,7 @@ body {
 
 /* Hero Banner */
 .hero {
-  background: url('images/banner.jpeg') center/cover no-repeat;
+  background: url('images/banner.jpg') center/cover no-repeat;
   height: 80vh;
   display: flex;
   align-items: center;
@@ -73,22 +73,71 @@ nav ul li a:hover {
 }
 
 /* Vertical Gallery */
-.vertical-gallery {
-  height: 400px;
-  overflow: hidden;
+/* Ensure no conflicting styles override this block */
+#designs .vertical-gallery {
   position: relative;
+  max-height: 520px;       /* viewport for scroll */
+  overflow: hidden;        /* hide outside area for animation */
+  padding: 8px 0;
 }
-.gallery-track {
-  display: flex;
-  flex-direction: column;
-  animation: scrollUp 20s linear infinite;
+
+/* 4 columns in a grid */
+#designs .gallery-track {
+  display: grid !important;               /* force grid in case other CSS sets flex */
+  grid-template-columns: repeat(4, 1fr);  /* 4 images per row */
+  gap: 14px;
+  align-items: start;
+  
+  /* Create a tall content area that will move upward */
+  animation: verticalScroll 20s linear infinite;
 }
-.gallery-track img {
-  width: 250px;
-  margin: 10px auto;
+
+/* Image styling */
+#designs .gallery-track img {
+  width: 100%;
+  height: 80%;           /* uniform height for clean rows */
+  object-fit: cover;
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
+
+/* Pause on hover for better UX */
+#designs .vertical-gallery:hover .gallery-track {
+  animation-play-state: paused;
+}
+
+/* Keyframes for upward movement */
+@keyframes verticalScroll {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    /* Move up by (content height - viewport height).
+       If you add more rows, increase duration to keep speed comfortable. */
+    transform: translateY(-50%);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  #designs .gallery-track {
+    grid-template-columns: repeat(2, 1fr); /* 2 per row */
+  }
+  #designs .gallery-track img {
+    height: 80%;
+  }
+}
+
+@media (max-width: 600px) {
+  #designs .gallery-track {
+    grid-template-columns: 1fr;           /* 1 per row */
+  }
+  #designs .gallery-track img {
+    height: 220px;
+  }
+}
+
+
 @keyframes scrollUp {
   0% { transform: translateY(0); }
   100% { transform: translateY(-50%); }
@@ -100,6 +149,28 @@ nav ul li a:hover {
   border-radius: 8px;
   padding: 20px;
 }
+
+.faq-item {
+  margin-bottom: 20px;
+  padding: 15px;
+  border-left: 4px solid #c94f7c; /* soft mehendi pink */
+  background-color: #fdf6f9;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  border-radius: 6px;
+}
+
+.faq-item h3 {
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.faq-item p {
+  margin: 0;
+  font-size: 1rem;
+  color: #555;
+}
+
 
 /* Footer */
 footer {
@@ -127,7 +198,7 @@ footer {
 
 .small-hero {
   height: 40vh;
-  background: url('images/banner2.jpeg') center/cover no-repeat;
+  background: url('images/banner1.jpg') center/cover no-repeat;
 }
 
 .portfolio-gallery {
@@ -139,10 +210,10 @@ footer {
 }
 
 .portfolio-gallery img {
-  width: 100%;
-  height: 280px;
-  object-fit: cover;
-  border-radius: 8px;
+  width: 80%; 
+  height: 80%; 
+  max-width: 100%; 
+  border-radius: 8px; 
   box-shadow: 0 4px 6px rgba(0,0,0,0.2);
 }
 
