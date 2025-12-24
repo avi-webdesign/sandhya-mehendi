@@ -27,11 +27,23 @@ function loadImages(folder, prefix, count, galleryId) {
   }
 }
 
+  // On load, duplicate the gallery content once to ensure seamless loop
+  document.addEventListener('DOMContentLoaded', () => {
+    const track = document.querySelector('#designs .gallery-track');
+    if (track) {
+      const clone = track.cloneNode(true);
+      // Append children of clone, not the container itself
+      while (clone.firstElementChild) {
+        track.appendChild(clone.firstElementChild);
+      }
+    }
+  });
+
 // Load galleries
-loadImages("engagement", "eng", 20, "engagementGallery");
-loadImages("wedding", "wed", 20, "weddingGallery");
-loadImages("baby", "baby", 20, "babyGallery");
-loadImages("festive", "fest", 20, "festiveGallery");
+loadImages("engagement", "eng", 8, "engagementGallery");
+loadImages("wedding", "wed", 29, "weddingGallery");
+//loadImages("baby", "baby", 20, "babyGallery");
+loadImages("festive", "fest", 37, "festiveGallery");
 
 
 // Handle "View More"
